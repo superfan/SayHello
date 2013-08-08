@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sayhello"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+	
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    
+    <!-- 在SD卡中创建与删除文件权限 -->
+	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+	<!-- 向SD卡写入数据权限 -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.sayhello.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <receiver android:name="com.example.sayhello.BootBroadcastReceiver">
+  			<intent-filter>
+    			<action android:name="android.intent.action.BOOT_COMPLETED" />
+  	 		</intent-filter>
+  		</receiver>
+  		
+        <receiver android:name="com.example.sayhello.AlarmReceiver" />
+        
+  		<service android:name="com.example.sayhello.MusicService"
+  		    	 android:exported="false">
+          <intent-filter>
+              <action android:name="com.example.sayhello.MUSIC" />
+              <category android:name="android.intent.category.default" />
+          </intent-filter>
+        </service>
+        
+  		<service android:name="com.example.sayhello.AlarmService"
+  		    	 android:exported="false">
+          <intent-filter>
+              <action android:name="com.example.sayhello.Alarm" />
+              <category android:name="android.intent.category.default" />
+          </intent-filter>
+        </service>
+    </application>
+
+</manifest>
